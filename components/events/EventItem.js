@@ -1,12 +1,15 @@
-import Link from 'next/link';
-const EventItem = ({ id, image, title, description, location, date }) => {
+import classes from './EventItem.module.css';
+import Button from '../ui/Button';
+
+const EventItem = ({ id, image, title, location, date }) => {
   return (
-    <li>
+    <li className={classes.item}>
       <img src={`/${image}`} alt={title} />
-      <div>
-        <div>
+
+      <div className={classes.content}>
+        <div className={classes.summary}>
           <h2>{title}</h2>
-          <div>
+          <div className={classes.date}>
             <time>
               {new Date(date).toLocaleDateString('en-US', {
                 day: 'numeric',
@@ -15,13 +18,14 @@ const EventItem = ({ id, image, title, description, location, date }) => {
               })}
             </time>
           </div>
-          <div>
-            <address>{location}</address>
+          <div className={classes.address}>
+            <address>{location.replace(', ', '\n')}</address>
           </div>
         </div>
-      </div>
-      <div>
-        <Link href={`/events/${id}`}>Explore Event</Link>
+
+        <div className={classes.actions}>
+          <Button link={`/events/${id}`}>Explore Event</Button>
+        </div>
       </div>
     </li>
   );
